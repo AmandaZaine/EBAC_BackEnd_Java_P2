@@ -6,16 +6,13 @@ package dao;
 
 import domain.Cliente;
 import java.util.Collection;
+import java.util.List;
 
-/**
- *
- * @author amanda
- */
 public interface IClienteDAO {
 
-    public boolean cadastrar(Cliente cliente);
-    public void excluir(Long cpf);
-    public void alterar(Cliente cliente);
-    public Cliente consultar(Long cpf);
-    public Collection<Cliente> buscarTodos();
+    public Integer cadastrar(Cliente cliente) throws Exception;
+    public Integer alterar(Cliente cliente) throws Exception;
+    public Cliente buscar(String cpf) throws Exception;
+    public List<Cliente> buscarTodos() throws Exception;
+    public Integer excluir(Cliente cliente) throws Exception;
 }

@@ -4,38 +4,31 @@
  */
 package domain;
 
-/**
- *
- * @author amanda
- */
 import java.util.Objects;
 
 public class Cliente {
 
+    private String cpf;
     private String nome;
-    private Long cpf;
-    private Long telefone;
-    private String endereco;
-    private Integer numero;
-    private String cidade;
-    private String estado;
+    private String telefone;
 
     public Cliente(
-            String nome,
             String cpf,
-            String telefone,
-            String endereco,
-            String numero,
-            String cidade,
-            String estado
+            String nome,
+            String telefone
     ) {
+        this.cpf = cpf;
         this.nome = nome;
-        this.cpf = Long.valueOf(cpf.trim());
-        this.telefone = Long.valueOf(telefone.trim());
-        this.endereco = endereco;
-        this.numero = Integer.valueOf(numero.trim());
-        this.cidade = cidade;
-        this.estado = estado;
+        this.telefone = telefone;
+    }
+
+    public Cliente(
+            String cpf
+    ) {
+        this.cpf = cpf;
+    }
+
+    public Cliente() {
     }
 
     public String getNome() {
@@ -46,52 +39,20 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public Long getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     @Override
