@@ -10,7 +10,9 @@ public class ConnectionFactory {
 	public static Connection connection;
 	
 	private ConnectionFactory(Connection connection) {}
-	
+
+	// Se a conexão não for válida, ele cria uma nova conexão.
+	// Isso garante que sempre que uma conexão for solicitada, ela estará pronta para uso.
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		if(connection == null || connection.isClosed() || !isConnectionValid()) {
 			connection = initConnection();
@@ -32,8 +34,9 @@ public class ConnectionFactory {
 		}
 	}
 
+	//Esse método verificar se a conexão atual é válida antes de usá-la
 	private static boolean isConnectionValid() {
-		try (Statement stmt = connection.createStatement()) {
+		try (Statement stmt = connection.createStatement()) { // Statement é um objeto usado para enviar instruções SQL para o BD
 			stmt.executeQuery("SELECT 1");
 			return true;
 		} catch (SQLException e) {
