@@ -10,10 +10,6 @@ import domain.Cliente;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author amanda
- */
 public class TelaPrincipal extends javax.swing.JFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel();
@@ -170,9 +166,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_buttonSalvarActionPerformed
         String nome = textoNome.getText();
-        String cpf = textoCpf.getText();
+        Long cpf = Long.valueOf(textoCpf.getText());
         
-        if(!isCamposValidos(nome, cpf)){
+        if(!isCamposValidos(nome)){
             JOptionPane.showMessageDialog(
                 null, 
                 "Existem campos a serem preenchidos!", 
@@ -183,9 +179,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         Cliente cliente = new Cliente(cpf, nome, "98206");
         
-        Integer isCadastrado = this.clienteDAO.cadastrar(cliente);
+        Boolean isCadastrado = this.clienteDAO.cadastrar(cliente);
         
-        if(isCadastrado > 0) {
+        if(isCadastrado) {
             modelo.addRow(new Object[]{cliente.getNome(), cliente.getCpf()});
             limparCampos();
             
@@ -207,7 +203,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) throws Exception {//GEN-FIRST:event_tableClientesMouseClicked
         int linhaSelecionada = tableClientes.getSelectedRow();
-        String cpf = (String) tableClientes.getValueAt(linhaSelecionada, 1);
+        Long cpf = (Long) tableClientes.getValueAt(linhaSelecionada, 1);
         
         Cliente cliente = this.clienteDAO.buscar(cpf);
         
@@ -228,10 +224,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     );
             
             if(result == JOptionPane.YES_OPTION){
-                String cpf = (String) tableClientes.getValueAt(linhaSelecionada, 1);
+                Long cpf = (Long) tableClientes.getValueAt(linhaSelecionada, 1);
                 Cliente cliente = new Cliente(cpf);
 
-                this.clienteDAO.excluir(cliente);
+                this.clienteDAO.excluir(cliente.getCpf());
                 modelo.removeRow(linhaSelecionada);
                 
                 JOptionPane.showMessageDialog(

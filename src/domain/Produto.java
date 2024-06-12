@@ -1,9 +1,27 @@
 package domain;
 
-public class Produto {
-    String codigo;
-    String nome;
-    String descricao;
+import annotations.ColunaTabela;
+import annotations.Tabela;
+import annotations.TipoChave;
+import dao.Persistente;
+
+import java.math.BigDecimal;
+
+@Tabela("produto")
+public class Produto implements Persistente {
+
+    @ColunaTabela(dbName = "id", setJavaName = "setId")
+    private Long id;
+
+    @TipoChave("getCodigo")
+    @ColunaTabela(dbName = "codigo", setJavaName = "setCodigo")
+    private String codigo;
+
+    @ColunaTabela(dbName = "nome", setJavaName = "setNome")
+    private String nome;
+
+    @ColunaTabela(dbName = "valor", setJavaName = "setValor")
+    private BigDecimal valor;
 
     public String getCodigo() {
         return codigo;
@@ -21,11 +39,21 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public BigDecimal getValor() {
+        return valor;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

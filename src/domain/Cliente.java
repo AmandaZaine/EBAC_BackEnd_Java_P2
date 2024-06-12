@@ -4,16 +4,30 @@
  */
 package domain;
 
+import annotations.ColunaTabela;
+import annotations.Tabela;
+import annotations.TipoChave;
+import dao.Persistente;
 import java.util.Objects;
 
-public class Cliente {
+@Tabela("cliente")
+public class Cliente implements Persistente {
 
-    private String cpf;
+    @ColunaTabela(dbName = "id", setJavaName = "setId")
+    private Long id;
+
+    @TipoChave("getCpf")
+    @ColunaTabela(dbName = "cpf", setJavaName = "setCpf")
+    private Long cpf;
+
+    @ColunaTabela(dbName = "nome", setJavaName = "setNome")
     private String nome;
+
+    @ColunaTabela(dbName = "telefone", setJavaName = "setTelefone")
     private String telefone;
 
     public Cliente(
-            String cpf,
+            Long cpf,
             String nome,
             String telefone
     ) {
@@ -23,7 +37,7 @@ public class Cliente {
     }
 
     public Cliente(
-            String cpf
+            Long cpf
     ) {
         this.cpf = cpf;
     }
@@ -39,11 +53,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 
@@ -71,5 +85,15 @@ public class Cliente {
     @Override
     public String toString() {
         return "nome = " + nome + ", cpf = " + cpf;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }
