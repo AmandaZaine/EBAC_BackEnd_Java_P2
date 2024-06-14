@@ -5,8 +5,6 @@ import dao.ClienteDAO;
 import dao.IClienteDAO;
 import domain.Cliente;
 import exceptions.DAOException;
-import exceptions.MaisDeUmRegistroException;
-import exceptions.TableException;
 import exceptions.TipoChaveNaoEncontradaException;
 import org.junit.After;
 import org.junit.Assert;
@@ -45,6 +43,7 @@ public class ClienteDAOTest {
         cliente.setCpf(12312312312L);
         cliente.setNome("Rodrigo");
         cliente.setTelefone("1199999999");
+        cliente.setVip(true);
         clienteDao.cadastrar(cliente);
 
         Cliente clienteConsultado = clienteDao.buscar(cliente.getCpf());
@@ -59,6 +58,7 @@ public class ClienteDAOTest {
         cliente.setCpf(56565656565L);
         cliente.setNome("Rodrigo");
         cliente.setTelefone("1199999999");
+        cliente.setVip(false);
         Boolean retorno = clienteDao.cadastrar(cliente);
         assertTrue(retorno);
 
@@ -74,6 +74,7 @@ public class ClienteDAOTest {
         cliente.setCpf(56565656565L);
         cliente.setNome("Daniela");
         cliente.setTelefone("1199999999");
+        cliente.setVip(false);
         Boolean retorno = clienteDao.cadastrar(cliente);
         assertTrue(retorno);
 
@@ -91,6 +92,7 @@ public class ClienteDAOTest {
         cliente.setCpf(56565656565L);
         cliente.setNome("Rodrigo");
         cliente.setTelefone("1199999999");
+        cliente.setVip(false);
         Boolean retorno = clienteDao.cadastrar(cliente);
         assertTrue(retorno);
 
@@ -115,13 +117,15 @@ public class ClienteDAOTest {
         cliente.setCpf(56565656565L);
         cliente.setNome("Rodrigo");
         cliente.setTelefone("1199999999");
+        cliente.setVip(false);
         Boolean retorno = clienteDao.cadastrar(cliente);
         assertTrue(retorno);
 
         Cliente cliente1 = new Cliente();
         cliente1.setCpf(56565656569L);
         cliente1.setNome("Rodrigo");
-        cliente.setTelefone("1199999999");
+        cliente1.setTelefone("1199999999");
+        cliente1.setVip(true);
         Boolean retorno1 = clienteDao.cadastrar(cliente1);
         assertTrue(retorno1);
 

@@ -55,7 +55,6 @@ public class VendaDAOTest {
         clienteDao.excluir(this.cliente.getCpf());
     }
 
-
     private void excluirProdutos() throws Exception {
         Collection<Produto> list = this.produtoDao.buscarTodos();
         for (Produto prod : list) {
@@ -297,10 +296,10 @@ public class VendaDAOTest {
     }
 
     private void excluirVendas() throws DAOException {
-        String sqlProd = "DELETE FROM TB_PRODUTO_QUANTIDADE";
+        String sqlProd = "DELETE FROM PRODUTO_QUANTIDADE";
         executeDelete(sqlProd);
 
-        String sqlV = "DELETE FROM TB_VENDA";
+        String sqlV = "DELETE FROM VENDA";
         executeDelete(sqlV);
     }
 

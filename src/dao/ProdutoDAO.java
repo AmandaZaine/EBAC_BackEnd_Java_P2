@@ -48,15 +48,14 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
 
     @Override
     protected String getQueryAtualizacao() {
-        return "UPDATE PRODUTO SET CODIGO = ?, NOME = ?, VALOR = ? WHERE CODIGO = ?";
+        return "UPDATE PRODUTO SET NOME = ?, VALOR = ? WHERE CODIGO = ?";
     }
 
     @Override
-    protected void setParametrosQueryAtualizacao(PreparedStatement stmUpdate, Produto entity) throws SQLException {
-        stmUpdate.setString(1, entity.getCodigo());
-        stmUpdate.setString(2, entity.getNome());
-        stmUpdate.setBigDecimal(4, entity.getValor());
-        stmUpdate.setString(5, entity.getCodigo());
+    protected void setParametrosQueryAtualizacao(PreparedStatement stmUpdate, Produto produto) throws SQLException {
+        stmUpdate.setString(1, produto.getNome());
+        stmUpdate.setBigDecimal(2, produto.getValor());
+        stmUpdate.setString(3, produto.getCodigo());
     }
 
     @Override

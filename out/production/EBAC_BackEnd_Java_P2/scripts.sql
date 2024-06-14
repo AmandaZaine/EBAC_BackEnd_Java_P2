@@ -3,6 +3,7 @@ create table cliente (
 	cpf bigint not null,
 	nome varchar(50) not null,
 	telefone varchar(50),
+	vip boolean,
 	constraint pk_id_cliente primary key(id)
 );
 

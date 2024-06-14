@@ -75,7 +75,11 @@ public class Venda implements Persistente {
     public void adicionarProduto(Produto produto, Integer quantidade) {
         validarStatus();
         Optional<ProdutoQuantidade> op =
-                produtos.stream().filter(filter -> filter.getProduto().getCodigo().equals(produto.getCodigo())).findAny();
+                produtos
+                        .stream()
+                        .filter(produtoDaVenda -> produtoDaVenda.getProduto().getCodigo().equals(produto.getCodigo()))
+                        .findAny();
+
         if (op.isPresent()) {
             ProdutoQuantidade produtpQtd = op.get();
             produtpQtd.adicionar(quantidade);

@@ -62,7 +62,7 @@ public class ProdutoQuantidade {
 
     public void adicionar(Integer quantidade) {
         this.quantidade += quantidade;
-        this.valorTotal = this.produto.getValor().multiply(valueOf(quantidade));
+        this.valorTotal = this.produto.getValor().multiply(valueOf(this.quantidade));
     }
 
     public void remover(Integer quantidade) {

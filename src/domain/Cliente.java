@@ -26,14 +26,19 @@ public class Cliente implements Persistente {
     @ColunaTabela(dbName = "telefone", setJavaName = "setTelefone")
     private String telefone;
 
+    @ColunaTabela(dbName = "vip", setJavaName = "setVip")
+    private Boolean vip;
+
     public Cliente(
             Long cpf,
             String nome,
-            String telefone
+            String telefone,
+            Boolean vip
     ) {
         this.cpf = cpf;
         this.nome = nome;
         this.telefone = telefone;
+        this.vip = vip;
     }
 
     public Cliente(
@@ -95,5 +100,13 @@ public class Cliente implements Persistente {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getVip() {
+        return vip;
+    }
+
+    public void setVip(Boolean vip) {
+        this.vip = vip;
     }
 }

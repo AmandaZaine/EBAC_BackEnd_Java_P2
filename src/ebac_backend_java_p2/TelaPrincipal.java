@@ -177,7 +177,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
         
-        Cliente cliente = new Cliente(cpf, nome, "98206");
+        Cliente cliente = new Cliente(cpf, nome, "98206", true);
         
         Boolean isCadastrado = this.clienteDAO.cadastrar(cliente);
         
