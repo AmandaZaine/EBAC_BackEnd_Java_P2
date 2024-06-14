@@ -22,6 +22,7 @@ create table produto(
 	codigo varchar(10) not null,
 	nome varchar(50) not null,
 	valor numeric(10,2) not null,
+	marca varchar(50),
 	constraint pk_id_produto primary key(id)
 );
 

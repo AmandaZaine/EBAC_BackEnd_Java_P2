@@ -42,6 +42,7 @@ public class ProdutoDAOTest {
         produto.setCodigo(codigo);
         produto.setNome("Produto 1");
         produto.setValor(BigDecimal.TEN);
+        produto.setMarca("EBAC");
         produtoDao.cadastrar(produto);
         return produto;
     }

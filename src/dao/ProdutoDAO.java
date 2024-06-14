@@ -22,11 +22,12 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
         produtoCadastrado.setCodigo(produto.getCodigo());
         produtoCadastrado.setNome(produto.getNome());
         produtoCadastrado.setValor(produto.getValor());
+        produtoCadastrado.setMarca(produto.getMarca());
     }
 
     @Override
     protected String getQueryInsercao() {
-        return "INSERT INTO PRODUTO (ID, CODIGO, NOME, VALOR) VALUES (nextval('sq_produto'),?,?,?)";
+        return "INSERT INTO PRODUTO (ID, CODIGO, NOME, VALOR, MARCA) VALUES (nextval('sq_produto'),?,?,?,?)";
     }
 
     @Override
@@ -34,6 +35,7 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
         stmInsert.setString(1, produto.getCodigo());
         stmInsert.setString(2, produto.getNome());
         stmInsert.setBigDecimal(3, produto.getValor());
+        stmInsert.setString(4,produto.getMarca());
     }
 
     @Override
@@ -48,14 +50,15 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
 
     @Override
     protected String getQueryAtualizacao() {
-        return "UPDATE PRODUTO SET NOME = ?, VALOR = ? WHERE CODIGO = ?";
+        return "UPDATE PRODUTO SET NOME = ?, VALOR = ?, MARCA = ? WHERE CODIGO = ?";
     }
 
     @Override
     protected void setParametrosQueryAtualizacao(PreparedStatement stmUpdate, Produto produto) throws SQLException {
         stmUpdate.setString(1, produto.getNome());
         stmUpdate.setBigDecimal(2, produto.getValor());
-        stmUpdate.setString(3, produto.getCodigo());
+        stmUpdate.setString(3, produto.getMarca());
+        stmUpdate.setString(4, produto.getCodigo());
     }
 
     @Override
