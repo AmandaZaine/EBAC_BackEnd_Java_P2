@@ -1,26 +1,33 @@
 package domain;
 
-import annotations.ColunaTabela;
-import annotations.Tabela;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.*;
 
-@Tabela("produto_quantidade")
+@Entity
 public class ProdutoQuantidade {
 
-    @ColunaTabela(dbName = "id", setJavaName = "setId")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_quant_seq")
+    @SequenceGenerator(name = "prod_quant_seq", sequenceName = "seq_prod_quant", initialValue = 1, allocationSize = 1)
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Produto produto;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "id_venda",
+            foreignKey = @ForeignKey(name = "fk_prod_quant_venda"),
+            referencedColumnName = "id"
+    )
     private Venda venda;
 
-    @ColunaTabela(dbName = "quantidade", setJavaName = "setQuantidade")
+    @Column
     private Integer quantidade;
 
-    @ColunaTabela(dbName = "valor_total", setJavaName = "setValorTotal")
+    @Column
     private BigDecimal valorTotal;
 
     public ProdutoQuantidade() {

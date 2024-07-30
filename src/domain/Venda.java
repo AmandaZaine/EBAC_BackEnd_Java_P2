@@ -1,17 +1,15 @@
 package domain;
 
-import annotations.ColunaTabela;
-import annotations.Tabela;
-import annotations.TipoChave;
 import dao.Persistente;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Tabela("venda")
+@Entity
 public class Venda implements Persistente {
 
     public enum Status {
@@ -27,25 +25,34 @@ public class Venda implements Persistente {
         }
     }
 
-    @ColunaTabela(dbName = "id", setJavaName = "setId")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_seq")
+    @SequenceGenerator(name = "venda_seq", sequenceName = "seq_venda", initialValue = 1, allocationSize = 1)
     private Long id;
 
-    @TipoChave("getCodigo")
-    @ColunaTabela(dbName = "codigo", setJavaName = "setCodigo")
+    @Column(nullable = false, unique = true)
     private String codigo;
 
-    @ColunaTabela(dbName = "id_cliente_fk", setJavaName = "setIdClienteFk")
+    @ManyToOne
+    @JoinColumn(
+            name = "id_cliente",
+            foreignKey = @ForeignKey(name = "fk_venda_cliente"),
+            referencedColumnName = "id",
+            nullable = false
+    )
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
     private Set<ProdutoQuantidade> produtos;
 
-    @ColunaTabela(dbName = "valor_total", setJavaName = "setValorTotal")
+    @Column
     private BigDecimal valorTotal;
 
-    @ColunaTabela(dbName = "data_venda", setJavaName = "setDataVenda")
+    @Column
     private Instant dataVenda;
 
-    @ColunaTabela(dbName = "status_venda", setJavaName = "setStatus")
+    @Enumerated(EnumType.STRING)
+    @Column
     private Status status;
 
     public Venda() {

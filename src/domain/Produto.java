@@ -1,29 +1,28 @@
 package domain;
 
-import annotations.ColunaTabela;
-import annotations.Tabela;
-import annotations.TipoChave;
 import dao.Persistente;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Tabela("produto")
+@Entity
 public class Produto implements Persistente {
 
-    @ColunaTabela(dbName = "id", setJavaName = "setId")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+    @SequenceGenerator(name = "produto_seq", sequenceName = "seq_produto", initialValue = 1, allocationSize = 1)
     private Long id;
 
-    @TipoChave("getCodigo")
-    @ColunaTabela(dbName = "codigo", setJavaName = "setCodigo")
+    @Column(nullable = false, unique = true)
     private String codigo;
 
-    @ColunaTabela(dbName = "nome", setJavaName = "setNome")
+    @Column
     private String nome;
 
-    @ColunaTabela(dbName = "valor", setJavaName = "setValor")
+    @Column
     private BigDecimal valor;
 
-    @ColunaTabela(dbName = "marca", setJavaName = "setMarca")
+    @Column
     private String marca;
 
     public String getCodigo() {

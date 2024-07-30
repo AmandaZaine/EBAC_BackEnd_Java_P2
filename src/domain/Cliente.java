@@ -1,32 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package domain;
 
-import annotations.ColunaTabela;
-import annotations.Tabela;
-import annotations.TipoChave;
 import dao.Persistente;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-@Tabela("cliente")
+
+@Entity
 public class Cliente implements Persistente {
 
-    @ColunaTabela(dbName = "id", setJavaName = "setId")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
+    @SequenceGenerator(name = "cliente_seq", sequenceName = "seq_cliente", initialValue = 1, allocationSize = 1)
     private Long id;
 
-    @TipoChave("getCpf")
-    @ColunaTabela(dbName = "cpf", setJavaName = "setCpf")
+    @Column(nullable = false, unique = true)
     private Long cpf;
 
-    @ColunaTabela(dbName = "nome", setJavaName = "setNome")
+    @Column(nullable = false)
     private String nome;
 
-    @ColunaTabela(dbName = "telefone", setJavaName = "setTelefone")
+    @Column
     private String telefone;
 
-    @ColunaTabela(dbName = "vip", setJavaName = "setVip")
+    @Column
     private Boolean vip;
 
     public Cliente(

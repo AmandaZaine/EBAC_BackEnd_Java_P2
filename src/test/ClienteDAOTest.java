@@ -24,12 +24,11 @@ public class ClienteDAOTest {
 
     @After
     public void end() throws DAOException {
-        Collection<Cliente> list = clienteDao.buscarTodos();
-        list.forEach(cli -> {
+        Collection<Cliente> clientes = clienteDao.buscarTodos();
+        clientes.forEach(cliente -> {
             try {
-                clienteDao.excluir(cli.getCpf());
+                clienteDao.excluir(cliente);
             } catch (DAOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -48,8 +47,6 @@ public class ClienteDAOTest {
 
         Cliente clienteConsultado = clienteDao.buscar(cliente.getCpf());
         Assert.assertNotNull(clienteConsultado);
-
-        clienteDao.excluir(cliente.getCpf());
     }
 
     @Test
@@ -59,13 +56,16 @@ public class ClienteDAOTest {
         cliente.setNome("Rodrigo");
         cliente.setTelefone("1199999999");
         cliente.setVip(false);
-        Boolean retorno = clienteDao.cadastrar(cliente);
-        assertTrue(retorno);
+        Cliente clienteCadastrado = clienteDao.cadastrar(cliente);
+        Assert.assertNotNull(clienteCadastrado);
 
         Cliente clienteConsultado = clienteDao.buscar(cliente.getCpf());
         Assert.assertNotNull(clienteConsultado);
 
-        clienteDao.excluir(cliente.getCpf());
+        clienteDao.excluir(cliente);
+
+        clienteConsultado = clienteDao.buscar(cliente.getCpf());
+        Assert.assertNull(clienteConsultado);
     }
 
     @Test
@@ -75,13 +75,13 @@ public class ClienteDAOTest {
         cliente.setNome("Daniela");
         cliente.setTelefone("1199999999");
         cliente.setVip(false);
-        Boolean retorno = clienteDao.cadastrar(cliente);
-        assertTrue(retorno);
+        Cliente retorno = clienteDao.cadastrar(cliente);
+        Assert.assertNotNull(retorno);
 
         Cliente clienteConsultado = clienteDao.buscar(cliente.getCpf());
         Assert.assertNotNull(clienteConsultado);
 
-        clienteDao.excluir(cliente.getCpf());
+        clienteDao.excluir(cliente);
         clienteConsultado = clienteDao.buscar(cliente.getCpf());
         Assert.assertNull(clienteConsultado);
     }
@@ -93,8 +93,8 @@ public class ClienteDAOTest {
         cliente.setNome("Rodrigo");
         cliente.setTelefone("1199999999");
         cliente.setVip(false);
-        Boolean retorno = clienteDao.cadastrar(cliente);
-        assertTrue(retorno);
+        Cliente retorno = clienteDao.cadastrar(cliente);
+        Assert.assertNotNull(retorno);
 
         Cliente clienteConsultado = clienteDao.buscar(cliente.getCpf());
         Assert.assertNotNull(clienteConsultado);
@@ -102,40 +102,40 @@ public class ClienteDAOTest {
         clienteConsultado.setNome("Rodrigo Pires");
         clienteDao.alterar(clienteConsultado);
 
-        Cliente clienteAlterado = clienteDao.buscar(clienteConsultado.getCpf());
+        Cliente clienteAlterado = clienteDao.buscar(clienteConsultado.getId());
         Assert.assertNotNull(clienteAlterado);
         Assert.assertEquals("Rodrigo Pires", clienteAlterado.getNome());
 
-        clienteDao.excluir(cliente.getCpf());
+        clienteDao.excluir(cliente);
         clienteConsultado = clienteDao.buscar(cliente.getCpf());
         Assert.assertNull(clienteConsultado);
     }
 
     @Test
     public void buscarTodos() throws TipoChaveNaoEncontradaException, DAOException {
-        Cliente cliente = new Cliente();
-        cliente.setCpf(56565656565L);
-        cliente.setNome("Rodrigo");
-        cliente.setTelefone("1199999999");
-        cliente.setVip(false);
-        Boolean retorno = clienteDao.cadastrar(cliente);
-        assertTrue(retorno);
-
         Cliente cliente1 = new Cliente();
-        cliente1.setCpf(56565656569L);
+        cliente1.setCpf(56565656565L);
         cliente1.setNome("Rodrigo");
         cliente1.setTelefone("1199999999");
-        cliente1.setVip(true);
-        Boolean retorno1 = clienteDao.cadastrar(cliente1);
-        assertTrue(retorno1);
+        cliente1.setVip(false);
+        Cliente retorno1 = clienteDao.cadastrar(cliente1);
+        Assert.assertNotNull(retorno1);
 
-        Collection<Cliente> list = clienteDao.buscarTodos();
-        assertTrue(list != null);
-        assertTrue(list.size() == 2);
+        Cliente cliente2 = new Cliente();
+        cliente2.setCpf(56565656569L);
+        cliente2.setNome("Rodrigo");
+        cliente2.setTelefone("1199999999");
+        cliente2.setVip(true);
+        Cliente retorno2 = clienteDao.cadastrar(cliente2);
+        Assert.assertNotNull(retorno2);
 
-        list.forEach(cli -> {
+        Collection<Cliente> clientes = clienteDao.buscarTodos();
+        assertTrue(clientes != null);
+        assertTrue(clientes.size() == 2);
+
+        clientes.forEach(cliente -> {
             try {
-                clienteDao.excluir(cli.getCpf());
+                clienteDao.excluir(cliente);
             } catch (DAOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

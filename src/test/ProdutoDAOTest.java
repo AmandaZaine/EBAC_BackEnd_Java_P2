@@ -4,8 +4,6 @@ import dao.IProdutoDAO;
 import dao.ProdutoDAO;
 import domain.Produto;
 import exceptions.DAOException;
-import exceptions.MaisDeUmRegistroException;
-import exceptions.TableException;
 import exceptions.TipoChaveNaoEncontradaException;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class ProdutoDAOTest {
 
-    private IProdutoDAO produtoDao;
+    private final IProdutoDAO produtoDao;
 
     public ProdutoDAOTest() {
         produtoDao = new ProdutoDAO();
@@ -29,7 +27,7 @@ public class ProdutoDAOTest {
         Collection<Produto> list = produtoDao.buscarTodos();
         list.forEach(prod -> {
             try {
-                produtoDao.excluir(prod.getCodigo());
+                produtoDao.excluir(prod);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -47,8 +45,8 @@ public class ProdutoDAOTest {
         return produto;
     }
 
-    private void excluir(String valor) throws Exception {
-        this.produtoDao.excluir(valor);
+    private void excluir(Produto produto) throws Exception {
+        this.produtoDao.excluir(produto);
     }
 
     @Test
@@ -57,21 +55,21 @@ public class ProdutoDAOTest {
         assertNotNull(produto);
         Produto produtoDB = this.produtoDao.buscar(produto.getCodigo());
         assertNotNull(produtoDB);
-        excluir(produtoDB.getCodigo());
+        excluir(produtoDB);
     }
 
     @Test
     public void salvar() throws Exception {
         Produto produto = criarProduto("A2");
         assertNotNull(produto);
-        excluir(produto.getCodigo());
+        excluir(produto);
     }
 
     @Test
     public void excluir() throws Exception {
         Produto produto = criarProduto("A3");
         assertNotNull(produto);
-        excluir(produto.getCodigo());
+        excluir(produto);
         Produto produtoBD = this.produtoDao.buscar(produto.getCodigo());
         assertNull(produtoBD);
     }
@@ -85,7 +83,7 @@ public class ProdutoDAOTest {
         assertNotNull(produtoBD);
         Assert.assertEquals("Rodrigo Pires", produtoBD.getNome());
 
-        excluir(produto.getCodigo());
+        excluir(produto);
         Produto produtoBD1 = this.produtoDao.buscar(produto.getCodigo());
         assertNull(produtoBD1);
     }
@@ -95,16 +93,16 @@ public class ProdutoDAOTest {
         criarProduto("A5");
         criarProduto("A6");
         Collection<Produto> list = produtoDao.buscarTodos();
-        assertTrue(list != null);
-        assertTrue(list.size() == 2);
+        assertNotNull(list);
+        assertEquals(2, list.size());
 
         for (Produto prod : list) {
-            excluir(prod.getCodigo());
+            excluir(prod);
         }
 
         list = produtoDao.buscarTodos();
-        assertTrue(list != null);
-        assertTrue(list.size() == 0);
+        assertNotNull(list);
+        assertEquals(0, list.size());
 
     }
 }
