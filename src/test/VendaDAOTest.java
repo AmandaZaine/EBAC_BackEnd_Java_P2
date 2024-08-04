@@ -1,13 +1,11 @@
 package test;
 
-import dao.*;
-import domain.Cliente;
-import domain.Produto;
-import domain.Venda;
-import exceptions.DAOException;
-import exceptions.MaisDeUmRegistroException;
-import exceptions.TableException;
-import exceptions.TipoChaveNaoEncontradaException;
+import main.dao.*;
+import main.domain.Cliente;
+import main.domain.Produto;
+import main.domain.Venda;
+import main.exceptions.DAOException;
+import main.exceptions.TipoChaveNaoEncontradaException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

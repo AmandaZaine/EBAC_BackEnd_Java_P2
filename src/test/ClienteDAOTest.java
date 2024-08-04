@@ -1,11 +1,11 @@
 package test;
 
 
-import dao.ClienteDAO;
-import dao.IClienteDAO;
-import domain.Cliente;
-import exceptions.DAOException;
-import exceptions.TipoChaveNaoEncontradaException;
+import main.dao.ClienteDAO;
+import main.dao.IClienteDAO;
+import main.domain.Cliente;
+import main.exceptions.DAOException;
+import main.exceptions.TipoChaveNaoEncontradaException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;

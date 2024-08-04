@@ -1,10 +1,10 @@
 package test;
 
-import dao.IProdutoDAO;
-import dao.ProdutoDAO;
-import domain.Produto;
-import exceptions.DAOException;
-import exceptions.TipoChaveNaoEncontradaException;
+import main.dao.IProdutoDAO;
+import main.dao.ProdutoDAO;
+import main.domain.Produto;
+import main.exceptions.DAOException;
+import main.exceptions.TipoChaveNaoEncontradaException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
